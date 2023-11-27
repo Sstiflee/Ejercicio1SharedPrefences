@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Ejercicio1SharedPrefences"
+rootProject.name = "ejemploSQL"
 include(":app")
-include(":app")
+ 
