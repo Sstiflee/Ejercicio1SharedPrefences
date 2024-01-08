@@ -3,6 +3,8 @@ package adrian.belarte.alumnossql;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -89,6 +91,45 @@ public class MainActivity extends AppCompatActivity {
             }catch (SQLException e){
                 throw  new RuntimeException(e);
             }
+
+            limpiar();
         }
+    }
+
+    private void limpiar() {
+        binding.txtNombreMain.setText("");
+        binding.txtApellidosMain.setText("");
+        binding.txtNota1Main.setText("");
+        binding.txtNota2Main.setText("");
+        binding.txtNota3Main.setText("");
+        binding.lbNotaFinalMain.setText("Nota Final: ");
+    }
+    private void actualizarNotaFinal(){
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    float nota1 = Float.parseFloat(binding.txtNota1Main.getText().toString());
+                    float nota2 = Float.parseFloat(binding.txtNota2Main.getText().toString());
+                    float nota3 = Float.parseFloat(binding.txtNota3Main.getText().toString());
+                    float notaFinl = (nota1 + nota2 + nota3) / 3;
+
+                    binding.lbNotaFinalMain.setText("Nota Final: " + Configuracion.NF.format(notaFinl));
+                }catch (Exception e){}
+            }
+        };
+        binding.txtNota1Main.addTextChangedListener(textWatcher);
+        binding.txtNota2Main.addTextChangedListener(textWatcher);
+        binding.txtNota3Main.addTextChangedListener(textWatcher);
     }
 }
